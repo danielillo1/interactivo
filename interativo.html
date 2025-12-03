@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posiciones del Voleibol - Aprende Jugando</title>
+  <meta name="description" content="Aprende las posiciones del voleibol de forma interactiva y pon a prueba tus conocimientos con un test de 10 preguntas.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #0f172a;
+      --foreground: #f1f5f9;
+      --card: #1e293b;
+      --card-hover: #334155;
+      --primary: #f97316;
+      --primary-hover: #ea580c;
+      --secondary: #3b82f6;
+      --muted: #475569;
+      --muted-foreground: #94a3b8;
+      --success: #22c55e;
+      --destructive: #ef4444;
+      --border: #334155;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .font-display {
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    /* Header */
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
+
+    header h1 span {
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      color: var(--muted-foreground);
+      margin-top: 0.5rem;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem 6rem;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .main-content {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+      }
+    }
+
+    /* Court Section */
+    .court-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .court {
+      position: relative;
+      width: 320px;
+      height: 480px;
+      background: linear-gradient(180deg, #1d4ed8, #2563eb);
+      border-radius: var(--radius);
+      border: 4px solid var(--primary);
+      overflow: hidden;
+      box-shadow: 0 20px 50px -10px rgba(249, 115, 22, 0.3);
+    }
+
+    .court::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(90deg, transparent 48%, rgba(255,255,255,0.3) 49%, rgba(255,255,255,0.3) 51%, transparent 52%),
+        linear-gradient(180deg, transparent 41%, rgba(255,255,255,0.5) 42%, rgba(255,255,255,0.5) 43%, transparent 44%);
+    }
+
+    /* Attack zone */
+    .court::after {
+      content: '';
+      position: absolute;
+      top: 25%;
+      left: 0;
+      right: 0;
+      height: 18%;
+      background: rgba(251, 146, 60, 0.2);
+      border-top: 2px dashed rgba(255,255,255,0.4);
+      border-bottom: 2px dashed rgba(255,255,255,0.4);
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.8);
+      border: 3px solid rgba(255,255,255,0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: white;
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease;
+      animation: pulse-glow 2s infinite;
+      z-index: 10;
+    }
+
+    .hotspot:hover {
+      background: var(--primary);
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+    }
+
+    .hotspot.visited {
+      background: var(--success);
+      animation: none;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
+      }
+    }
+
+    /* Position coordinates */
+    #pos1 { top: 80%; left: 80%; }
+    #pos2 { top: 18%; left: 80%; }
+    #pos3 { top: 18%; left: 50%; }
+    #pos4 { top: 18%; left: 20%; }
+    #pos5 { top: 80%; left: 20%; }
+    #pos6 { top: 80%; left: 50%; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px -5px rgba(249, 115, 22, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--foreground);
+      border: 2px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--card);
+      border-color: var(--muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .hint {
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+      text-align: center;
+      max-width: 300px;
+      margin-top: 0.5rem;
+    }
+
+    /* Info Panel */
+    .panel {
+      width: 100%;
+      max-width: 400px;
+      background: linear-gradient(180deg, #1e293b, #0f172a);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      min-height: 350px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      background: var(--primary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+    }
+
+    .panel h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .panel p {
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+
+    .instructions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      padding: 2rem 0;
+    }
+
+    .instructions svg {
+      width: 64px;
+      height: 64px;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .instructions h3 {
+      color: var(--foreground);
+    }
+
+    /* Progress */
+    .progress-section {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .progress-header span:last-child {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--muted);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    /* Quiz */
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .score-badge {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--secondary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .quiz-progress {
+      height: 6px;
+      background: var(--muted);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--secondary);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .question {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option {
+      width: 100%;
+      padding: 1rem;
+      background: rgba(71, 85, 105, 0.3);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      color: var(--foreground);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .option:hover:not(:disabled) {
+      background: var(--card-hover);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+
+    .option.correct {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: var(--success);
+    }
+
+    .option.wrong {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--destructive);
+    }
+
+    .option:disabled {
+      cursor: not-allowed;
+    }
+
+    .option-icon {
+      font-size: 1.25rem;
+    }
+
+    .next-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+
+    /* Results */
+    .results {
+      text-align: center;
+      animation: bounce-in 0.6s ease-out;
+    }
+
+    .results svg {
+      width: 80px;
+      height: 80px;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .results h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: var(--primary);
+      margin: 1rem 0;
+    }
+
+    .result-message {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-bar {
+      height: 16px;
+      background: var(--muted);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      transition: width 1s ease;
+    }
+
+    .result-bar-fill.good {
+      background: var(--success);
+    }
+
+    .result-bar-fill.bad {
+      background: var(--destructive);
+    }
+
+    @keyframes bounce-in {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-slide-up {
+      animation: slide-up 0.5s ease-out;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--muted-foreground);
+      font-size: 0.875rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Posiciones del <span>Voleibol</span></h1>
+    <p>Aprende las posiciones y pon a prueba tus conocimientos</p>
+  </header>
+
+  <div class="container">
+    <div class="main-content">
+      <!-- Court Section -->
+      <div class="court-section">
+        <div class="court">
+          <div class="hotspot" id="pos1" onclick="showPosition(0)">1</div>
+          <div class="hotspot" id="pos2" onclick="showPosition(1)">2</div>
+          <div class="hotspot" id="pos3" onclick="showPosition(2)">3</div>
+          <div class="hotspot" id="pos4" onclick="showPosition(3)">4</div>
+          <div class="hotspot" id="pos5" onclick="showPosition(4)">5</div>
+          <div class="hotspot" id="pos6" onclick="showPosition(5)">6</div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary hidden" id="startQuizBtn" onclick="startQuiz()">
+            ▶ Iniciar Test
+          </button>
+          <button class="btn btn-outline hidden" id="restartBtn" onclick="restartAll()">
+            ↻ Reiniciar
+          </button>
+        </div>
+
+        <p class="hint" id="hint">Visita todas las posiciones para desbloquear el test de conocimientos</p>
+      </div>
+
+      <!-- Info Panel -->
+      <div class="panel" id="infoPanel">
+        <div class="instructions" id="instructions">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="font-display">Instrucciones</h3>
+          <p>Haz clic en cada posición del campo para aprender sobre los roles en el voleibol.</p>
+        </div>
+
+        <div class="hidden" id="positionInfo">
+          <div class="panel-header">
+            <span class="badge" id="positionBadge">Posición 1</span>
+          </div>
+          <h3 id="positionRole">Rol</h3>
+          <p id="positionDesc">Descripción</p>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <span style="color: var(--muted-foreground)">Progreso</span>
+            <span>
+              <span style="color: var(--success)">✓</span>
+              <span id="visitedCount">0</span> / 6 posiciones
+            </span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Panel -->
+      <div class="panel hidden" id="quizPanel">
+        <div class="quiz-header">
+          <span>Pregunta <span id="questionNum">1</span> de 10</span>
+          <span class="score-badge">Puntos: <span id="currentScore">0</span></span>
+        </div>
+
+        <div class="quiz-progress">
+          <div class="quiz-progress-fill" id="quizProgressFill" style="width: 10%"></div>
+        </div>
+
+        <p class="question" id="questionText">Pregunta</p>
+
+        <div class="options" id="optionsContainer"></div>
+
+        <button class="btn btn-primary next-btn hidden" id="nextBtn" onclick="nextQuestion()">
+          Siguiente
+        </button>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="panel hidden" id="resultsPanel">
+        <div class="results">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+          <h2>Resultado Final</h2>
+          <div class="score-display" id="finalScore">0/10</div>
+          <p class="result-message" id="resultMessage">¡Bien hecho!</p>
+          <div class="result-bar">
+            <div class="result-bar-fill" id="resultBarFill" style="width: 0%"></div>
+          </div>
+          <button class="btn btn-primary" onclick="restartAll()">
+            ↻ Reintentar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>🏐 Aprende voleibol de forma interactiva</p>
+  </footer>
+
+  <script>
+    // Position data
+    const positions = [
+      {
+        id: 1,
+        name: "Posición 1",
+        role: "Zaguero Derecho / Sacador",
+        description: "El jugador en esta posición es responsable del saque y la defensa en la zona trasera derecha. Debe tener buena recepción y capacidad para realizar saques potentes y precisos."
+      },
+      {
+        id: 2,
+        name: "Posición 2",
+        role: "Colocador / Opuesto",
+        description: "El opuesto es el principal atacante del equipo. Se ubica diagonal al colocador y es responsable de los remates más potentes, especialmente desde el lado derecho de la red."
+      },
+      {
+        id: 3,
+        name: "Posición 3",
+        role: "Central",
+        description: "El central es especialista en bloqueo y ataque rápido. Juega en el centro de la red y debe moverse rápidamente para bloquear tanto por el centro como por las bandas."
+      },
+      {
+        id: 4,
+        name: "Posición 4",
+        role: "Atacante / Receptor",
+        description: "El atacante receptor es responsable de la recepción del saque y del ataque por el lado izquierdo. Debe tener buenas habilidades tanto ofensivas como defensivas."
+      },
+      {
+        id: 5,
+        name: "Posición 5",
+        role: "Zaguero Izquierdo / Líbero",
+        description: "Esta zona suele ser ocupada por el líbero, especialista en defensa y recepción. No puede atacar por encima de la red ni realizar saques, pero es fundamental en la defensa del equipo."
+      },
+      {
+        id: 6,
+        name: "Posición 6",
+        role: "Zaguero Central",
+        description: "El jugador en esta posición cubre el centro de la zona defensiva. Es crucial para la defensa contra ataques del centro y debe comunicarse constantemente con sus compañeros."
+      }
+    ];
+
+    // Quiz questions
+    const questions = [
+      {
+        question: "¿Cuál es la función principal del líbero en el voleibol?",
+        options: ["Atacar desde la red", "Defensa y recepción", "Realizar saques potentes", "Bloquear ataques"],
+        correct: 1
+      },
+      {
+        question: "¿Desde qué posición se realiza el saque en voleibol?",
+        options: ["Posición 3", "Posición 4", "Posición 1", "Posición 6"],
+        correct: 2
+      },
+      {
+        question: "¿Cuál es la especialidad del jugador central?",
+        options: ["Recepción de saques", "Bloqueo y ataque rápido", "Defensa en zona trasera", "Colocación"],
+        correct: 1
+      },
+      {
+        question: "El opuesto se caracteriza por ser:",
+        options: ["El mejor defensor", "El principal atacante", "El especialista en saques", "El coordinador del equipo"],
+        correct: 1
+      },
+      {
+        question: "¿Qué restricciones tiene el líbero?",
+        options: ["No puede saltar", "No puede atacar por encima de la red ni sacar", "No puede tocar el balón", "No puede estar en zona delantera"],
+        correct: 1
+      },
+      {
+        question: "¿En qué zona del campo juega el atacante receptor?",
+        options: ["Centro de la red", "Lado derecho", "Lado izquierdo", "Zona trasera"],
+        correct: 2
+      },
+      {
+        question: "¿Cuál es la función del zaguero central?",
+        options: ["Atacar desde el centro", "Cubrir el centro de la zona defensiva", "Realizar todos los saques", "Bloquear en la red"],
+        correct: 1
+      },
+      {
+        question: "¿Por qué el central debe moverse rápidamente?",
+        options: ["Para recibir todos los saques", "Para bloquear por el centro y las bandas", "Para realizar los saques", "Para colocar el balón"],
+        correct: 1
+      },
+      {
+        question: "El zaguero derecho en posición 1 debe tener:",
+        options: ["Solo habilidad de ataque", "Buena recepción y saque preciso", "Solo habilidad de bloqueo", "Capacidad de colocación"],
+        correct: 1
+      },
+      {
+        question: "¿Dónde se ubica el opuesto respecto al colocador?",
+        options: ["Al lado", "En la misma posición", "En diagonal", "Detrás"],
+        correct: 2
+      }
+    ];
+
+    // State
+    let visitedPositions = new Set();
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+
+    // DOM elements
+    const infoPanel = document.getElementById('infoPanel');
+    const quizPanel = document.getElementById('quizPanel');
+    const resultsPanel = document.getElementById('resultsPanel');
+    const instructions = document.getElementById('instructions');
+    const positionInfo = document.getElementById('positionInfo');
+    const startQuizBtn = document.getElementById('startQuizBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const hint = document.getElementById('hint');
+
+    function showPosition(index) {
+      const pos = positions[index];
+      visitedPositions.add(index);
+      
+      // Update hotspot style
+      document.getElementById(`pos${index + 1}`).classList.add('visited');
+      
+      // Show position info
+      instructions.classList.add('hidden');
+      positionInfo.classList.remove('hidden');
+      positionInfo.classList.add('animate-slide-up');
+      
+      document.getElementById('positionBadge').textContent = pos.name;
+      document.getElementById('positionRole').textContent = pos.role;
+      document.getElementById('positionDesc').textContent = pos.description;
+      
+      // Update progress
+      updateProgress();
+      
+      // Show buttons
+      restartBtn.classList.remove('hidden');
+      
+      if (visitedPositions.size === 6) {
+        startQuizBtn.classList.remove('hidden');
+        hint.classList.add('hidden');
+      }
+    }
+
+    function updateProgress() {
+      document.getElementById('visitedCount').textContent = visitedPositions.size;
+      document.getElementById('progressFill').style.width = `${(visitedPositions.size / 6) * 100}%`;
+    }
+
+    function startQuiz() {
+      infoPanel.classList.add('hidden');
+      quizPanel.classList.remove('hidden');
+      startQuizBtn.classList.add('hidden');
+      hint.classList.add('hidden');
+      currentQuestion = 0;
+      score = 0;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('questionNum').textContent = currentQuestion + 1;
+      document.getElementById('currentScore').textContent = score;
+      document.getElementById('quizProgressFill').style.width = `${((currentQuestion + 1) / 10) * 100}%`;
+      document.getElementById('questionText').textContent = q.question;
+      
+      const container = document.getElementById('optionsContainer');
+      container.innerHTML = '';
+      
+      q.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.textContent = option;
+        btn.onclick = () => selectAnswer(index);
+        container.appendChild(btn);
+      });
+      
+      document.getElementById('nextBtn').classList.add('hidden');
+      answered = false;
+    }
+
+    function selectAnswer(index) {
+      if (answered) return;
+      answered = true;
+      
+      const q = questions[currentQuestion];
+      const options = document.querySelectorAll('.option');
+      
+      options.forEach((opt, i) => {
+        opt.disabled = true;
+        if (i === q.correct) {
+          opt.classList.add('correct');
+          opt.innerHTML = `${q.options[i]} <span class="option-icon">✓</span>`;
+        } else if (i === index && index !== q.correct) {
+          opt.classList.add('wrong');
+          opt.innerHTML = `${q.options[i]} <span class="option-icon">✗</span>`;
+        }
+      });
+      
+      if (index === q.correct) {
+        score++;
+        document.getElementById('currentScore').textContent = score;
+      }
+      
+      document.getElementById('nextBtn').classList.remove('hidden');
+      document.getElementById('nextBtn').textContent = currentQuestion < 9 ? 'Siguiente' : 'Ver Resultado';
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < 9) {
+        currentQuestion++;
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      quizPanel.classList.add('hidden');
+      resultsPanel.classList.remove('hidden');
+      
+      const percentage = (score / 10) * 100;
+      document.getElementById('finalScore').textContent = `${score}/10`;
+      
+      const messages = {
+        100: "¡Perfecto! 🏆",
+        80: "¡Excelente! 🌟",
+        60: "¡Bien hecho! 👍",
+        40: "Sigue practicando 💪",
+        0: "Vuelve a estudiar las posiciones 📚"
+      };
+      
+      let message = messages[0];
+      if (percentage === 100) message = messages[100];
+      else if (percentage >= 80) message = messages[80];
+      else if (percentage >= 60) message = messages[60];
+      else if (percentage >= 40) message = messages[40];
+      
+      document.getElementById('resultMessage').textContent = message;
+      
+      const bar = document.getElementById('resultBarFill');
+      bar.style.width = `${percentage}%`;
+      bar.className = `result-bar-fill ${percentage >= 60 ? 'good' : 'bad'}`;
+    }
+
+    function restartAll() {
+      // Reset state
+      visitedPositions = new Set();
+      currentQuestion = 0;
+      score = 0;
+      answered = false;
+      
+      // Reset hotspots
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`pos${i}`).classList.remove('visited');
+      }
+      
+      // Reset panels
+      infoPanel.classList.remove('hidden');
+      quizPanel.classList.add('hidden');
+      resultsPanel.classList.add('hidden');
+      instructions.classList.remove('hidden');
+      positionInfo.classList.add('hidden');
+      
+      // Reset buttons
+      startQuizBtn.classList.add('hidden');
+      restartBtn.classList.add('hidden');
+      hint.classList.remove('hidden');
+      
+      // Reset progress
+      updateProgress();
+    }
+  </script>
+</body>
+</html>
