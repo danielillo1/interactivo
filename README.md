@@ -1,3 +1,5 @@
 # interactivo
 
-yo alondra aguregué una pregunta
+yo alondra agregué una pregunta
+
+yo abraham agregué una pregunta
